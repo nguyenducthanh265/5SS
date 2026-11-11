@@ -36,10 +36,11 @@ python -X utf8 scripts/smoke_test.py $API_URL --kind json --payload '{"input":"{
 # 2) Nếu đang bật ALLOW_FORCE_FALLBACK=1 trên Render để kiểm nhánh fallback:
 python -X utf8 scripts/smoke_test.py $API_URL --kind json --payload '{"input":"xin chào"}' --check-fallback --max-ms 20000
 
-# 3) Preflight tổng hợp (cần đặt biến môi trường local tương ứng SYSTEM hiện tại nếu chạy --real):
-$env:SYSTEM = "mypkg.waste_ai:run"   # hoặc "examples.openai_system_template:run" nếu chưa ghép waste_ai
-$env:OPENAI_API_KEY = "<key-của-bạn>"
-$env:OPENAI_MODEL = "gpt-4o-mini"
+# 3) Preflight tổng hợp (cần đặt biến môi trường local tương ứng khi chạy --real):
+$env:SYSTEM = "mypkg.waste_ai:run"
+$env:LLM_PROVIDER = "gemini"
+$env:GEMINI_API_KEY = "<key-gemini-của-bạn>"
+$env:GEMINI_MODEL = "gemini-3.8-flash"
 python -X utf8 scripts/preflight.py --real --url $API_URL --app-dir ../app
 ```
 
@@ -103,7 +104,7 @@ Không demo bằng Expo Go (đóng hẳn rồi mở lại sẽ mất kết nối
 }
 ```
 
-> Lưu ý bảo mật: `EXPO_PUBLIC_API_URL` chỉ chứa URL backend công khai. Tuyệt đối **không** đặt `OPENAI_API_KEY` hay bất kỳ secret nào vào `EXPO_PUBLIC_*`.
+> Lưu ý bảo mật: `EXPO_PUBLIC_API_URL` chỉ chứa URL backend công khai. Tuyệt đối **không** đặt `GEMINI_API_KEY`, `OPENAI_API_KEY` hay bất kỳ secret nào vào `EXPO_PUBLIC_*`.
 
 2. Cài EAS CLI (nếu chưa có), đăng nhập và build APK từ thư mục `hanoi-waste-app\app\`:
 
@@ -158,8 +159,8 @@ python -X utf8 scripts/demo_check.py --package com.codexhanoi.wastesorter --sche
 3. **Phát 4G từ điện thoại phụ:**
    Không phụ thuộc Wi-Fi hội trường (thường nghẽn hoặc chặn port). Dùng SIM 4G riêng hoặc bật hotspot 4G từ điện thoại phụ cho máy demo.
 4. **Fallback local server 1 lệnh (khi cần kiểm tra khẩn cấp hoặc mất kết nối cloud):**
-   Chạy trực tiếp backend từ `hanoi-waste-app\ml\` trên laptop (đặt `SYSTEM=mypkg.waste_ai:run` hoặc `examples.openai_system_template:run`):
+   Chạy trực tiếp backend từ `hanoi-waste-app\ml\` trên laptop (đặt `SYSTEM=mypkg.waste_ai:run`):
    ```powershell
-   cd "c:\Users\ThinkPad\OneDrive - MSFT\Desktop\hackathon codex\hanoi-waste-app\ml"; $env:SYSTEM="mypkg.waste_ai:run"; $env:MAX_CHARS="1500000"; $env:TIMEOUT_S="20"; $env:MAX_INFLIGHT="8"; uvicorn serve.app_llm:app --host 0.0.0.0 --port 8000
+   cd "c:\Users\ThinkPad\OneDrive - MSFT\Desktop\hackathon codex\hanoi-waste-app\ml"; $env:SYSTEM="mypkg.waste_ai:run"; $env:LLM_PROVIDER="gemini"; $env:GEMINI_MODEL="gemini-3.8-flash"; $env:MAX_CHARS="1500000"; $env:TIMEOUT_S="20"; $env:MAX_INFLIGHT="8"; uvicorn serve.app_llm:app --host 0.0.0.0 --port 8000
    ```
-   *(Nhớ đặt `$env:OPENAI_API_KEY` và `$env:OPENAI_MODEL` trước khi chạy. Với bài thi chính thức nộp cho BGK, APK vẫn phải trỏ về URL deploy công khai qua HTTPS).*
+   *(Nhớ đặt `$env:GEMINI_API_KEY` trước khi chạy, hoặc chuyển sang `LLM_PROVIDER=openai` với `OPENAI_API_KEY` + `OPENAI_MODEL`. Với bài thi chính thức nộp cho BGK, APK vẫn phải trỏ về URL deploy công khai qua HTTPS).*
