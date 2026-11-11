@@ -10,7 +10,7 @@ from examples import openai_system_template
 
 from .waste_rules import load_rules
 
-DEFAULT_GEMINI_MODEL = "gemini-3.8-flash"
+DEFAULT_GEMINI_MODEL = "gemini-3.5-flash-lite"
 _LOCAL_ENV_PATH = Path(__file__).resolve().parents[1] / ".env"
 
 VISION_ITEMS_JSON_SCHEMA: dict[str, Any] = {

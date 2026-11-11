@@ -9,6 +9,7 @@ export const DEFAULT_WASTE_PROMPT =
 
 export const MAX_IMAGE_DIMENSION = 1024;
 export const JPEG_COMPRESS_QUALITY = 0.8;
+export const DEFAULT_CLASSIFY_TIMEOUT_MS = 28000;
 
 export type ClassifyWasteResponse =
   | {
@@ -140,7 +141,7 @@ export async function classifyWasteImage(
   const prompt = opts.prompt ?? DEFAULT_WASTE_PROMPT;
   const aiRes = await askAIImage(baseUrl, imageBase64, prompt, {
     deviceId,
-    timeoutMs: opts.timeoutMs,
+    timeoutMs: opts.timeoutMs ?? DEFAULT_CLASSIFY_TIMEOUT_MS,
     json: true,
   });
 

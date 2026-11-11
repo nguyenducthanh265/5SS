@@ -30,7 +30,7 @@ pip install -r requirements-llm.txt
 $env:SYSTEM = "mypkg.waste_ai:run"
 $env:LLM_PROVIDER = "gemini"
 $env:GEMINI_API_KEY = "<your-gemini-api-key>"
-$env:GEMINI_MODEL = "gemini-3.8-flash"
+$env:GEMINI_MODEL = "gemini-3.5-flash-lite"
 $env:MAX_CHARS = "1500000"
 uvicorn serve.app_llm:app --host 0.0.0.0 --port 8000
 ```

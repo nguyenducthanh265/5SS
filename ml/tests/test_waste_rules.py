@@ -498,10 +498,10 @@ def test_waste_ai_gemini_interactions_client_and_schema():
     assert n["tokens"] == 33
 
     call = fake_client.calls[0]
-    assert call["model"] == "gemini-3.8-flash"
+    assert call["model"] == "gemini-3.5-flash-lite"
     assert call["store"] is False
     assert call["timeout"] == 14.0
-    assert call["generation_config"] == {"thinking_level": "low"}
+    assert "generation_config" not in call
     assert call["response_format"]["type"] == "text"
     assert call["response_format"]["mime_type"] == "application/json"
     assert call["input"][1] == {"type": "image", "data": "/9j/4AAQ", "mime_type": "image/jpeg"}
@@ -510,6 +510,10 @@ def test_waste_ai_gemini_interactions_client_and_schema():
     _assert_schema(evaluated)
     assert evaluated["items"][0]["item_key"] == "milk_carton"
     assert evaluated["items"][0]["rinse_required"] is True
+
+    waste_ai.run(payload, model="gemini-3.8-flash", timeout=14.0, client=fake_client)
+    assert fake_client.calls[1]["model"] == "gemini-3.8-flash"
+    assert fake_client.calls[1]["generation_config"] == {"thinking_level": "low"}
 
 
 def test_waste_ai_provider_resolution_and_gemini_errors(monkeypatch):

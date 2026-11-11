@@ -10,7 +10,7 @@ Hướng dẫn thực chiến đưa backend AI lên Render, build APK bằng EAS
 2. Push code lên GitHub, vào **Render Dashboard > New > Blueprint**, chọn repo chứa `render.yaml`.
 3. Khi Render hỏi biến `sync: false`, điền:
    - `GEMINI_API_KEY`: API key Gemini từ Google AI Studio (chỉ lưu trên Render, tuyệt đối không đưa vào code hay `app/`).
-   - `GEMINI_MODEL` mặc định trong `render.yaml` là `gemini-3.8-flash` (nếu dùng OpenAI thay thế, đặt `LLM_PROVIDER=openai`, `OPENAI_API_KEY`, `OPENAI_MODEL=gpt-4o-mini`).
+   - `GEMINI_MODEL` mặc định trong `render.yaml` là `gemini-3.5-flash-lite` (nếu dùng OpenAI thay thế, đặt `LLM_PROVIDER=openai`, `OPENAI_API_KEY`, `OPENAI_MODEL=gpt-4o-mini`).
 4. Biến `SYSTEM` trong `render.yaml` đã được đặt sẵn là `mypkg.waste_ai:run` (gọi Vision AI rồi áp bộ quy tắc QĐ 87/2025/QĐ-UBND trong `ml/mypkg/waste_ai.py`).
 5. *(Chỉ khi cần test nhánh fallback trên URL thật)*: tạm thêm `ALLOW_FORCE_FALLBACK=1` trên Render Environment, test xong **bắt buộc xóa/đặt `0` trước khi demo**.
 
@@ -40,7 +40,7 @@ python -X utf8 scripts/smoke_test.py $API_URL --kind json --payload '{"input":"x
 $env:SYSTEM = "mypkg.waste_ai:run"
 $env:LLM_PROVIDER = "gemini"
 $env:GEMINI_API_KEY = "<key-gemini-của-bạn>"
-$env:GEMINI_MODEL = "gemini-3.8-flash"
+$env:GEMINI_MODEL = "gemini-3.5-flash-lite"
 python -X utf8 scripts/preflight.py --real --url $API_URL --app-dir ../app
 ```
 
@@ -161,6 +161,6 @@ python -X utf8 scripts/demo_check.py --package com.codexhanoi.wastesorter --sche
 4. **Fallback local server 1 lệnh (khi cần kiểm tra khẩn cấp hoặc mất kết nối cloud):**
    Chạy trực tiếp backend từ `hanoi-waste-app\ml\` trên laptop (đặt `SYSTEM=mypkg.waste_ai:run`):
    ```powershell
-   cd "c:\Users\ThinkPad\OneDrive - MSFT\Desktop\hackathon codex\hanoi-waste-app\ml"; $env:SYSTEM="mypkg.waste_ai:run"; $env:LLM_PROVIDER="gemini"; $env:GEMINI_MODEL="gemini-3.8-flash"; $env:MAX_CHARS="1500000"; $env:TIMEOUT_S="20"; $env:MAX_INFLIGHT="8"; uvicorn serve.app_llm:app --host 0.0.0.0 --port 8000
+   cd "c:\Users\ThinkPad\OneDrive - MSFT\Desktop\hackathon codex\hanoi-waste-app\ml"; $env:SYSTEM="mypkg.waste_ai:run"; $env:LLM_PROVIDER="gemini"; $env:GEMINI_MODEL="gemini-3.5-flash-lite"; $env:MAX_CHARS="1500000"; $env:TIMEOUT_S="25"; $env:MAX_INFLIGHT="8"; uvicorn serve.app_llm:app --host 0.0.0.0 --port 8000
    ```
    *(Nhớ đặt `$env:GEMINI_API_KEY` trước khi chạy, hoặc chuyển sang `LLM_PROVIDER=openai` với `OPENAI_API_KEY` + `OPENAI_MODEL`. Với bài thi chính thức nộp cho BGK, APK vẫn phải trỏ về URL deploy công khai qua HTTPS).*

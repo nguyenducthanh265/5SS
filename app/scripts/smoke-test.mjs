@@ -232,7 +232,7 @@ with sync_playwright() as p:
         "Dữ liệu trả về chưa đúng định dạng",
     ]
     found_status = None
-    for _ in range(30):
+    for _ in range(56):
         body_text = page.locator("body").inner_text()
         for candidate in status_texts:
             if candidate in body_text:
