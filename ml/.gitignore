@@ -1,5 +1,7 @@
 data/*
 !data/split.json
+!data/hanoi_rules_87_2025.json
+!data/image_eval.example.jsonl
 runs/
 serve/model/
 __pycache__/

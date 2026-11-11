@@ -1,0 +1,149 @@
+{
+  "regulation": {
+    "title": "Quyết định 87/2025/QĐ-UBND của UBND TP Hà Nội",
+    "effective_date": "2026-01-08",
+    "collection_window_urban": "18:00 - 22:00 tại điểm quy định của UBND cấp xã/phường",
+    "refusal_notice": "Đơn vị thu gom có quyền từ chối thu gom nếu hộ gia đình/cá nhân không phân loại đúng quy định."
+  },
+  "groups": {
+    "group_1_recyclable": {
+      "name_vi": "Nhóm 1: Chất thải rắn có khả năng tái sử dụng, tái chế",
+      "short_label": "Rác tái chế",
+      "color_hex": "#16A34A",
+      "examples": ["giấy báo", "bìa carton", "chai nhựa sạch", "lon kim loại", "thủy tinh", "vỏ hộp sữa đã tráng sạch"]
+    },
+    "group_2_food": {
+      "name_vi": "Nhóm 2: Chất thải thực phẩm",
+      "short_label": "Rác thực phẩm",
+      "color_hex": "#D97706",
+      "examples": ["thức ăn thừa", "rau củ quả", "vỏ trái cây", "xương/thịt/cá thải bỏ"]
+    },
+    "group_3_other": {
+      "name_vi": "Nhóm 3: Chất thải rắn sinh hoạt khác",
+      "short_label": "Rác thải còn lại",
+      "color_hex": "#4B5563",
+      "examples": ["túi nilon dính dầu mỡ", "hộp xốp bẩn", "giấy vệ sinh", "tã bỉm", "vỉ thuốc nhựa-nhôm"]
+    },
+    "group_3_hazardous": {
+      "name_vi": "Nhóm 3 (Nguy hại): Chất thải nguy hại hộ gia đình",
+      "short_label": "Rác nguy hại",
+      "color_hex": "#DC2626",
+      "examples": ["pin thải", "bóng đèn huỳnh quang", "nhiệt kế thủy ngân", "chai lọ đựng hóa chất"]
+    },
+    "group_3_bulky": {
+      "name_vi": "Nhóm 3 (Cồng kềnh): Chất thải cồng kềnh",
+      "short_label": "Rác cồng kềnh",
+      "color_hex": "#7C3AED",
+      "examples": ["bàn ghế hỏng", "tủ gỗ", "nệm cũ", "cành cây lớn"]
+    }
+  },
+  "item_rules": {
+    "milk_carton": {
+      "default_group": "group_1_recyclable",
+      "rinse_required": true,
+      "sell_for_recycling": true,
+      "note_vi": "Đổ hết sữa, tráng sơ bằng nước và ép dẹp để tái chế hoặc gom bán/đổi quà."
+    },
+    "plastic_bottle": {
+      "default_group": "group_1_recyclable",
+      "dirty_override_group": "group_1_recyclable",
+      "rinse_required_if_dirty": true,
+      "sell_for_recycling": true,
+      "note_vi": "Đổ cạn nước, bóp dẹp chai nhựa; có thể bán đồng nát/ve chai."
+    },
+    "aluminum_can": {
+      "default_group": "group_1_recyclable",
+      "rinse_required_if_dirty": true,
+      "sell_for_recycling": true,
+      "note_vi": "Đổ cạn nước, bóp dẹp lon nhôm; bán phế liệu giá cao."
+    },
+    "cardboard_paper": {
+      "default_group": "group_1_recyclable",
+      "dirty_override_group": "group_3_other",
+      "rinse_required": false,
+      "sell_for_recycling": true,
+      "note_vi": "Nếu giấy/bìa khô sạch thì bỏ nhóm tái chế (bán phế liệu được); nếu thấm dầu mỡ/bẩn thì bỏ nhóm rác còn lại."
+    },
+    "oily_plastic_bag": {
+      "default_group": "group_3_other",
+      "rinse_required": false,
+      "sell_for_recycling": false,
+      "note_vi": "Túi nilon hoặc hộp xốp dính nhiều dầu mỡ khó làm sạch không đưa vào tái chế, bỏ vào nhóm chất thải khác."
+    },
+    "clean_plastic_bag": {
+      "default_group": "group_1_recyclable",
+      "rinse_required": false,
+      "sell_for_recycling": false,
+      "note_vi": "Túi nilon sạch, khô có thể gom vào nhóm tái chế; nếu bẩn dầu mỡ chuyển sang rác thải còn lại."
+    },
+    "medicine_blister": {
+      "default_group": "group_3_other",
+      "rinse_required": false,
+      "sell_for_recycling": false,
+      "note_vi": "Vỉ thuốc rỗng ghép nhôm-nhựa khó tách, bỏ vào chất thải khác (nếu còn thuốc thừa/hết hạn, gom riêng theo hướng dẫn nhà thuốc/y tế)."
+    },
+    "battery": {
+      "default_group": "group_3_hazardous",
+      "rinse_required": false,
+      "sell_for_recycling": false,
+      "is_hazardous": true,
+      "dropoff_category": "battery_hanoi",
+      "note_vi": "KHÔNG bỏ chung túi rác sinh hoạt hay đốt. Dán băng keo hai đầu và mang tới điểm thu hồi pin."
+    },
+    "light_bulb": {
+      "default_group": "group_3_hazardous",
+      "rinse_required": false,
+      "sell_for_recycling": false,
+      "is_hazardous": true,
+      "dropoff_category": "hazardous_hanoi",
+      "note_vi": "Bóng đèn huỳnh quang/compact chứa thủy ngân: bọc kỹ tránh vỡ, mang tới điểm thu gom rác nguy hại."
+    },
+    "small_ewaste": {
+      "default_group": "group_1_recyclable",
+      "rinse_required": false,
+      "sell_for_recycling": true,
+      "is_hazardous": false,
+      "dropoff_category": "battery_hanoi",
+      "note_vi": "Thiết bị điện tử nhỏ hỏng tách riêng khỏi rác ướt, mang tới điểm thu hồi rác điện tử hoặc bán đồng nát linh kiện."
+    },
+    "food_waste": {
+      "default_group": "group_2_food",
+      "rinse_required": false,
+      "sell_for_recycling": false,
+      "note_vi": "Chắt ráo nước, bỏ vào túi/thùng chất thải thực phẩm."
+    },
+    "other_non_recyclable": {
+      "default_group": "group_3_other",
+      "rinse_required": false,
+      "sell_for_recycling": false,
+      "note_vi": "Bỏ vào nhóm chất thải rắn sinh hoạt khác."
+    }
+  },
+  "dropoff_points": {
+    "battery_hanoi": [
+      {
+        "name": "Điểm thu hồi pin - Việt Nam Tái Chế (các quận nội thành & siêu thị liên kết)",
+        "area": "Nhiều quận Hà Nội (Cầu Giấy, Đống Đa, Hoàn Kiếm, Hai Bà Trưng)",
+        "note": "Kiểm tra điểm gần nhất tại UBND phường hoặc hệ thống siêu thị/nhà văn hóa khu dân cư"
+      },
+      {
+        "name": "Thùng thu gom pin thải tại sảnh chung cư / UBND phường",
+        "area": "Toàn TP Hà Nội",
+        "note": "Theo hướng dẫn phân loại tại nguồn của UBND phường/xã"
+      },
+      {
+        "name": "Các điểm thu gom pin tại trường ĐH lớn (Bách Khoa, KHTN, Quốc Gia...)",
+        "area": "Hai Bà Trưng, Thanh Xuân, Cầu Giấy",
+        "note": "Thùng thu hồi pin do CLB sinh viên/Đoàn trường đặt"
+      }
+    ],
+    "hazardous_hanoi": [
+      {
+        "name": "Điểm tiếp nhận chất thải nguy hại hộ gia đình theo lịch UBND phường/xã",
+        "area": "Toàn TP Hà Nội",
+        "note": "Đựng riêng, không làm vỡ trước khi bàn giao"
+      }
+    ]
+  }
+}
+

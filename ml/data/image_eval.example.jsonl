@@ -1,0 +1,5 @@
+{"id": "w01", "group": "g_milk", "input": "{\"prompt\": \"Nhận diện vật phẩm rác trong ảnh (tên tiếng Việt, chất liệu, tình trạng sạch hay dính bẩn/dầu mỡ). Trả về JSON.\", \"image_path\": \"data/photos/w01_milk_carton.jpg\", \"json\": true}", "expected": "sữa"}
+{"id": "w02", "group": "g_battery", "input": "{\"prompt\": \"Nhận diện vật phẩm rác trong ảnh (tên tiếng Việt, chất liệu, tình trạng sạch hay dính bẩn/dầu mỡ). Trả về JSON.\", \"image_path\": \"data/photos/w02_battery.jpg\", \"json\": true}", "expected": "pin"}
+{"id": "w03", "group": "g_oily", "input": "{\"prompt\": \"Nhận diện vật phẩm rác trong ảnh (tên tiếng Việt, chất liệu, tình trạng sạch hay dính bẩn/dầu mỡ). Trả về JSON.\", \"image_path\": \"data/photos/w03_oily_bag.jpg\", \"json\": true}", "expected": "dầu"}
+{"id": "w04", "group": "g_blister", "input": "{\"prompt\": \"Nhận diện vật phẩm rác trong ảnh (tên tiếng Việt, chất liệu, tình trạng sạch hay dính bẩn/dầu mỡ). Trả về JSON.\", \"image_path\": \"data/photos/w04_medicine_blister.jpg\", \"json\": true}", "expected": "thuốc"}
+

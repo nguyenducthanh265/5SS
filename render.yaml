@@ -24,7 +24,7 @@ services:
       - key: MAX_CHARS
         value: "1500000"  # đủ cho ảnh JPEG ~1024px mã hóa base64
       - key: TIMEOUT_S
-        value: "20"
+        value: "25"
       - key: MAX_INFLIGHT
         value: "8"
       - key: PYTHON_VERSION
