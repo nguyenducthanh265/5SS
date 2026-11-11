@@ -501,6 +501,7 @@ def test_waste_ai_gemini_interactions_client_and_schema():
     assert call["model"] == "gemini-3.8-flash"
     assert call["store"] is False
     assert call["timeout"] == 14.0
+    assert call["generation_config"] == {"thinking_level": "low"}
     assert call["response_format"]["type"] == "text"
     assert call["response_format"]["mime_type"] == "application/json"
     assert call["input"][1] == {"type": "image", "data": "/9j/4AAQ", "mime_type": "image/jpeg"}

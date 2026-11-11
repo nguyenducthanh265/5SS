@@ -146,6 +146,12 @@ def run(
         "store": False,
         "timeout": timeout,
     }
+    thinking_level = (
+        os.environ.get("GEMINI_THINKING_LEVEL")
+        or ("low" if resolved_model.startswith(("gemini-3.7", "gemini-3.8", "gemini-4")) else "")
+    ).strip().lower()
+    if thinking_level:
+        kwargs["generation_config"] = {"thinking_level": thinking_level}
     if want_json:
         kwargs["response_format"] = {
             "type": "text",
