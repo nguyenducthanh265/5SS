@@ -51,6 +51,7 @@ async function runStaticAndContractChecks() {
     "src/types/waste.ts",
     "src/services/wasteApi.ts",
     "src/services/speech.ts",
+    "src/components/WasteBinLegend.tsx",
     "src/app/index.tsx",
     "src/app/selftest.tsx",
   ]) {
@@ -203,10 +204,13 @@ with sync_playwright() as p:
     page.on("pageerror", lambda err: page_errors.append(str(err)))
     page.on("console", lambda msg: console_errors.append(msg.text) if msg.type == "error" else None)
 
-    # 1. Home route
+    # 1. Home route + 4 color-coded visual bin labels
     resp = page.goto(f"{base_url}/", wait_until="networkidle")
     assert resp is not None and resp.status == 200, f"Home status: {resp.status if resp else None}"
     assert page.get_by_text("ĐIỀU HÒA DÒNG RÁC").is_visible(), "Home title missing"
+    home_text = page.locator("body").inner_text()
+    for bin_label in ("Thùng Xanh Lá", "Thùng Vàng", "Thùng Đỏ", "Thùng Đen"):
+        assert bin_label in home_text, f"Missing bin label: {bin_label}"
 
     # 2. Toggle "Túi rác mở" mode
     bag_btn = page.get_by_text("Túi rác mở", exact=True)
@@ -243,11 +247,12 @@ with sync_playwright() as p:
         page.wait_for_timeout(500)
     assert found_status is not None, "Expected clean AI result or status/error banner after clicking 'Thử ảnh mẫu'"
 
-    # 5. Selftest route
+    # 5. Selftest route (brief pause avoids back-to-back Gemini free-tier burst)
+    page.wait_for_timeout(1200)
     resp2 = page.goto(f"{base_url}/selftest", wait_until="networkidle")
     assert resp2 is not None and resp2.status == 200, f"Selftest status: {resp2.status if resp2 else None}"
     settled = None
-    for _ in range(30):
+    for _ in range(56):
         st_text = page.locator("body").inner_text()
         if "HACKCHECK SELFTEST PASS" in st_text:
             settled = "HACKCHECK SELFTEST PASS"

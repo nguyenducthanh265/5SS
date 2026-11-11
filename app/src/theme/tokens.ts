@@ -139,8 +139,18 @@ export const DARK_THEME: AppTheme = {
 
 export interface GroupVisualStyle {
   label: string;
+  binName: string;
+  binColorName: string;
   binHint: string;
+  examples: string;
+  destination: string;
+  shortDestination: string;
+  legalTag: string;
   icon: IoniconName;
+  binInnerIcon: IoniconName;
+  binBg: string;
+  binLidBg: string;
+  binInk: string;
   bg: string;
   border: string;
   text: string;
@@ -150,109 +160,109 @@ export interface GroupVisualStyle {
 export function getGroupVisual(groupId: WasteGroupId, isDark: boolean): GroupVisualStyle {
   switch (groupId) {
     case "group_1_recyclable":
-      return isDark
-        ? {
-            label: "Nhóm 1 · Tái chế",
-            binHint: "Thùng xanh lá / Bán phế liệu",
-            icon: "leaf",
-            bg: "#052E16",
-            border: "#34D399",
-            text: "#A7F3D0",
-            accent: "#34D399",
-          }
-        : {
-            label: "Nhóm 1 · Tái chế",
-            binHint: "Thùng xanh lá / Bán phế liệu",
-            icon: "leaf",
-            bg: "#D1FAE5",
-            border: "#34D399",
-            text: "#064E3B",
-            accent: "#0F766E",
-          };
+      return {
+        label: "Thùng Xanh Lá · Rác Tái Chế",
+        binName: "Rác Tái Chế",
+        binColorName: "Thùng Xanh Lá",
+        binHint: "Bỏ thùng Xanh lá (hoặc gom bán ve chai)",
+        examples: "Giấy, bìa carton, chai nhựa sạch, hộp sữa, lon",
+        destination: "Cơ sở tái chế rác · Bán ve chai",
+        shortDestination: "Cơ sở tái chế",
+        legalTag: "Nhóm 1 · QĐ 87/2025",
+        icon: "sync-circle",
+        binInnerIcon: "sync",
+        binBg: "#16A34A",
+        binLidBg: "#15803D",
+        binInk: "#FFFFFF",
+        bg: isDark ? "#052E16" : "#DCFCE7",
+        border: isDark ? "#22C55E" : "#16A34A",
+        text: isDark ? "#BBF7D0" : "#14532D",
+        accent: isDark ? "#4ADE80" : "#15803D",
+      };
 
     case "group_2_food":
-      return isDark
-        ? {
-            label: "Nhóm 2 · Thực phẩm",
-            binHint: "Thùng rác hữu cơ / thực phẩm",
-            icon: "restaurant",
-            bg: "#451A03",
-            border: "#FBBF24",
-            text: "#FDE68A",
-            accent: "#FBBF24",
-          }
-        : {
-            label: "Nhóm 2 · Thực phẩm",
-            binHint: "Thùng rác hữu cơ / thực phẩm",
-            icon: "restaurant",
-            bg: "#FEF3C7",
-            border: "#F59E0B",
-            text: "#78350F",
-            accent: "#B45309",
-          };
+      return {
+        label: "Thùng Vàng · Rác Hữu Cơ",
+        binName: "Rác Hữu Cơ",
+        binColorName: "Thùng Vàng",
+        binHint: "Chắt ráo nước rồi bỏ thùng Vàng (thực phẩm)",
+        examples: "Thức ăn thừa, rau củ, vỏ trái cây, xương thịt cá",
+        destination: "Sản xuất phân hữu cơ · Thức ăn gia súc",
+        shortDestination: "Phân hữu cơ / Gia súc",
+        legalTag: "Nhóm 2 (Thực phẩm) · QĐ 87/2025",
+        icon: "nutrition",
+        binInnerIcon: "leaf",
+        binBg: "#EAB308",
+        binLidBg: "#CA8A04",
+        binInk: "#422006",
+        bg: isDark ? "#422006" : "#FEF9C3",
+        border: isDark ? "#FACC15" : "#D97706",
+        text: isDark ? "#FEF08A" : "#713F12",
+        accent: isDark ? "#FACC15" : "#A16207",
+      };
 
     case "group_3_hazardous":
-      return isDark
-        ? {
-            label: "Nhóm 3 · Rác nguy hại",
-            binHint: "Tách riêng, mang tới điểm thu hồi",
-            icon: "warning",
-            bg: "#450A0A",
-            border: "#F87171",
-            text: "#FECACA",
-            accent: "#F87171",
-          }
-        : {
-            label: "Nhóm 3 · Rác nguy hại",
-            binHint: "Tách riêng, mang tới điểm thu hồi",
-            icon: "warning",
-            bg: "#FEE2E2",
-            border: "#F87171",
-            text: "#7F1D1D",
-            accent: "#B91C1C",
-          };
+      return {
+        label: "Thùng Đen · Rác Nguy Hại",
+        binName: "Rác Nguy Hại",
+        binColorName: "Thùng Đen",
+        binHint: "KHÔNG bỏ chung túi rác · Mang tới điểm thu hồi",
+        examples: "Pin thải, mực in, sơn, hóa chất, bóng đèn",
+        destination: "Cơ sở xử lý riêng (đốt, đồng xử lý...)",
+        shortDestination: "Xử lý nguy hại",
+        legalTag: "Nhóm 3 (Nguy hại) · QĐ 87/2025",
+        icon: "warning",
+        binInnerIcon: "warning",
+        binBg: "#18181B",
+        binLidBg: "#27272A",
+        binInk: "#FACC15",
+        bg: isDark ? "#18181B" : "#F4F4F5",
+        border: isDark ? "#FACC15" : "#27272A",
+        text: isDark ? "#FEF08A" : "#18181B",
+        accent: isDark ? "#FACC15" : "#B45309",
+      };
 
     case "group_3_bulky":
-      return isDark
-        ? {
-            label: "Nhóm 3 · Rác cồng kềnh",
-            binHint: "Đặt tại điểm thu gom theo lịch phường",
-            icon: "cube",
-            bg: "#2E1065",
-            border: "#A78BFA",
-            text: "#DDD6FE",
-            accent: "#A78BFA",
-          }
-        : {
-            label: "Nhóm 3 · Rác cồng kềnh",
-            binHint: "Đặt tại điểm thu gom theo lịch phường",
-            icon: "cube",
-            bg: "#EDE9FE",
-            border: "#A78BFA",
-            text: "#4C1D95",
-            accent: "#5B21B6",
-          };
+      return {
+        label: "Điểm Tập Kết · Rác Cồng Kềnh",
+        binName: "Rác Cồng Kềnh",
+        binColorName: "Điểm tập kết",
+        binHint: "Đặt tại điểm thu gom theo lịch UBND phường",
+        examples: "Bàn ghế hỏng, tủ gỗ, nệm cũ, cành cây lớn",
+        destination: "Thu gom xử lý theo lịch UBND phường/xã",
+        shortDestination: "Điểm tập kết",
+        legalTag: "Nhóm 3 (Cồng kềnh) · QĐ 87/2025",
+        icon: "cube",
+        binInnerIcon: "cube",
+        binBg: "#7C3AED",
+        binLidBg: "#6D28D9",
+        binInk: "#FFFFFF",
+        bg: isDark ? "#2E1065" : "#EDE9FE",
+        border: isDark ? "#A78BFA" : "#7C3AED",
+        text: isDark ? "#DDD6FE" : "#4C1D95",
+        accent: isDark ? "#A78BFA" : "#5B21B6",
+      };
 
     case "group_3_other":
     default:
-      return isDark
-        ? {
-            label: "Nhóm 3 · Rác thải còn lại",
-            binHint: "Thùng rác sinh hoạt còn lại",
-            icon: "trash",
-            bg: "#1E293B",
-            border: "#64748B",
-            text: "#E2E8F0",
-            accent: "#94A3B8",
-          }
-        : {
-            label: "Nhóm 3 · Rác thải còn lại",
-            binHint: "Thùng rác sinh hoạt còn lại",
-            icon: "trash",
-            bg: "#EEF2FF",
-            border: "#94A3B8",
-            text: "#1E293B",
-            accent: "#334155",
-          };
+      return {
+        label: "Thùng Đỏ · Rác Vô Cơ",
+        binName: "Rác Vô Cơ",
+        binColorName: "Thùng Đỏ",
+        binHint: "Bỏ thùng Đỏ (rác vô cơ / sinh hoạt còn lại)",
+        examples: "Túi nilon bẩn, hộp xốp, găng tay, đồ gốm vỡ, tã",
+        destination: "Cơ sở xử lý rác (đốt, chôn lấp...)",
+        shortDestination: "Đốt, chôn lấp",
+        legalTag: "Nhóm 3 (Còn lại) · QĐ 87/2025",
+        icon: "flame",
+        binInnerIcon: "trash",
+        binBg: "#DC2626",
+        binLidBg: "#B91C1C",
+        binInk: "#FFFFFF",
+        bg: isDark ? "#450A0A" : "#FEE2E2",
+        border: isDark ? "#F87171" : "#DC2626",
+        text: isDark ? "#FECACA" : "#7F1D1D",
+        accent: isDark ? "#F87171" : "#B91C1C",
+      };
   }
 }

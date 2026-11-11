@@ -1,6 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
+import { WasteBinGraphic } from "@/components/WasteBinLegend";
 import {
   getGroupVisual,
   ICON_SIZE,
@@ -175,22 +176,51 @@ export function WasteResultView({
       {/* Per-item classification cards */}
       {result.items.map((item, idx) => {
         const groupVis = getGroupVisual(item.group_id, theme.isDark);
+        const isHazardousItem = item.group_id === "group_3_hazardous";
         return (
           <View
             key={`${item.item_key}-${idx}`}
             style={[
               styles.itemCard,
-              { backgroundColor: theme.surfaceGlass, borderColor: theme.border },
+              {
+                backgroundColor: theme.surfaceGlass,
+                borderColor: groupVis.border,
+              },
             ]}>
             <View
               style={[
-                styles.groupPill,
+                styles.binBanner,
                 { backgroundColor: groupVis.bg, borderColor: groupVis.border },
               ]}>
-              <Ionicons name={groupVis.icon} size={16} color={groupVis.text} />
-              <Text style={[styles.groupPillText, { color: groupVis.text }]}>
-                {item.group_name_vi}
-              </Text>
+              <WasteBinGraphic
+                visual={groupVis}
+                isHazardous={isHazardousItem}
+                size="sm"
+              />
+              <View style={styles.binBannerTexts}>
+                <View style={styles.binBannerTopRow}>
+                  <View
+                    style={[
+                      styles.binColorPill,
+                      { backgroundColor: groupVis.binBg },
+                    ]}>
+                    <Text style={[styles.binColorPillText, { color: groupVis.binInk }]}>
+                      {groupVis.binColorName}
+                    </Text>
+                  </View>
+                  <Text style={[styles.binBannerTitle, { color: groupVis.text }]}>
+                    {groupVis.binName}
+                  </Text>
+                </View>
+                <Text style={[styles.binBannerDest, { color: groupVis.text }]}>
+                  → Đưa tới: {groupVis.destination}
+                </Text>
+                <Text
+                  style={[styles.binBannerLegal, { color: groupVis.text }]}
+                  numberOfLines={1}>
+                  {item.group_name_vi}
+                </Text>
+              </View>
             </View>
 
             <View style={styles.itemHeader}>
@@ -431,21 +461,49 @@ const styles = StyleSheet.create({
   emptySubtitle: { fontSize: 13, textAlign: "center", lineHeight: 19 },
   itemCard: {
     borderRadius: RADII.lg,
-    borderWidth: 1,
+    borderWidth: 1.5,
     padding: SPACING.lg,
     gap: SPACING.sm,
   },
-  groupPill: {
-    alignSelf: "flex-start",
+  binBanner: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 6,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: RADII.pill,
+    gap: SPACING.md,
+    borderRadius: RADII.md,
     borderWidth: 1,
+    padding: SPACING.sm + 2,
   },
-  groupPillText: { fontSize: 12, fontWeight: "700", flexShrink: 1 },
+  binBannerTexts: {
+    flex: 1,
+    gap: 3,
+  },
+  binBannerTopRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    flexWrap: "wrap",
+    gap: 6,
+  },
+  binColorPill: {
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: RADII.pill,
+  },
+  binColorPillText: {
+    fontSize: 11,
+    fontWeight: "900",
+  },
+  binBannerTitle: {
+    fontSize: 15,
+    fontWeight: "900",
+  },
+  binBannerDest: {
+    fontSize: 12.5,
+    fontWeight: "700",
+  },
+  binBannerLegal: {
+    fontSize: 11,
+    opacity: 0.85,
+  },
   itemHeader: {
     flexDirection: "row",
     alignItems: "center",

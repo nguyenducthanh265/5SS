@@ -1,6 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Modal, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
+import { WasteBinGraphic } from "@/components/WasteBinLegend";
 import {
   getGroupVisual,
   ICON_SIZE,
@@ -111,10 +112,19 @@ export function GuideModal({ visible, theme, onClose }: GuideModalProps) {
                     { backgroundColor: vis.bg, borderColor: vis.border },
                   ]}>
                   <View style={styles.groupRow}>
-                    <Ionicons name={vis.icon} size={18} color={vis.text} />
-                    <Text style={[styles.groupTitle, { color: vis.text }]}>
-                      {g.title}
-                    </Text>
+                    <WasteBinGraphic
+                      visual={vis}
+                      isHazardous={g.id === "group_3_hazardous"}
+                      size="sm"
+                    />
+                    <View style={styles.groupTextCol}>
+                      <Text style={[styles.groupTitle, { color: vis.text }]}>
+                        {vis.label}
+                      </Text>
+                      <Text style={[styles.groupLegalSub, { color: vis.text }]}>
+                        {g.title} · Đưa tới: {vis.destination}
+                      </Text>
+                    </View>
                   </View>
                   <Text style={[styles.groupDetail, { color: vis.text }]}>
                     {g.detail}
@@ -204,8 +214,10 @@ const styles = StyleSheet.create({
     padding: SPACING.md,
     gap: 4,
   },
-  groupRow: { flexDirection: "row", alignItems: "center", gap: 6 },
-  groupTitle: { fontSize: 14, fontWeight: "800", flex: 1 },
+  groupRow: { flexDirection: "row", alignItems: "center", gap: 10 },
+  groupTextCol: { flex: 1, gap: 2 },
+  groupTitle: { fontSize: 14, fontWeight: "900" },
+  groupLegalSub: { fontSize: 11.5, fontWeight: "700", opacity: 0.9 },
   groupDetail: { fontSize: 13, lineHeight: 19 },
   trickyCard: {
     borderRadius: RADII.md,

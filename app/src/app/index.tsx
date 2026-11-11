@@ -21,6 +21,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { GuideModal } from "@/components/GuideModal";
 import { MangroveBackdrop } from "@/components/MangroveBackdrop";
 import { StatusBanner } from "@/components/StatusBanner";
+import { WasteBinLegend } from "@/components/WasteBinLegend";
 import { WasteResultView } from "@/components/WasteResultView";
 import { useHydratedDark } from "@/hooks/useHydratedDark";
 import { useWasteClassifier } from "@/hooks/useWasteClassifier";
@@ -67,6 +68,10 @@ export default function HomeScreen() {
 
   const apiUrl = getApiBaseUrl();
   const activePrompt = scanMode === "bag" ? BAG_SCAN_PROMPT : DEFAULT_WASTE_PROMPT;
+  const matchedGroupIds =
+    response?.status === "ai"
+      ? response.result.items.map((item) => item.group_id)
+      : [];
 
   const runAnalysis = async (uri: string) => {
     setCaptureError(null);
@@ -591,6 +596,13 @@ export default function HomeScreen() {
                 />
               )
             )}
+
+            {/* 4-color visual waste bin guide modeled on intuitive sorting bins */}
+            <WasteBinLegend
+              theme={theme}
+              activeGroupIds={matchedGroupIds}
+              onQuickScanGroup={() => void handleOpenCamera()}
+            />
 
             {/* Subtle footer status & QA link */}
             <View style={styles.footer}>
