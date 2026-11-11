@@ -73,7 +73,7 @@ def _read_dotenv_var(names: tuple[str, ...], env_path: Path | None = None) -> st
     target = env_path if env_path is not None else _LOCAL_ENV_PATH
     if not target.is_file():
         return ""
-    for line in target.read_text(encoding="utf-8", errors="ignore").splitlines():
+    for line in target.read_text(encoding="utf-8-sig", errors="ignore").splitlines():
         stripped = line.strip()
         if not stripped or stripped.startswith("#") or "=" not in stripped:
             continue

@@ -543,3 +543,7 @@ def test_gemini_api_key_reads_local_dotenv_fallback(tmp_path, monkeypatch):
     env_file.write_text("# comment\nGEMINI_API_KEY='demo-local-key'\n", encoding="utf-8")
     assert waste_ai.gemini_vision.get_gemini_api_key(env_path=env_file) == "demo-local-key"
 
+    bom_env = tmp_path / ".env.bom"
+    bom_env.write_bytes("\ufeffGEMINI_API_KEY=bom-local-key\n".encode("utf-8"))
+    assert waste_ai.gemini_vision.get_gemini_api_key(env_path=bom_env) == "bom-local-key"
+
