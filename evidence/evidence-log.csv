@@ -1,0 +1,7 @@
+source,date,type,content,number
+survey-google-form,,survey,"Câu 1: đã gặp vấn đề trong tháng này",
+interview-1,,quote,"",
+first-user-channel,,channel,"Tên kênh + số thành viên + ai phụ trách",
+llm-eval,,accuracy,"Đúng trên dữ liệu thật (runs/<id>/results.md)",
+stats-endpoint,2026-11-14,usage,"devices_ai và ai_requests trong buổi dùng thử",
+demo-check,2026-11-14,device,"RESULT: PASS trên 2 máy, --repeat 3",

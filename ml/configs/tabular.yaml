@@ -1,0 +1,15 @@
+# Dữ liệu bảng / văn bản. Mỗi thí nghiệm đổi một thứ:
+#   python -m mlkit.tasks.tabular train --config configs/tabular.yaml --set model=hgb tag=hgb
+csv: data/train.csv
+target: label                  # tên cột nhãn
+task: auto                     # auto | classification | regression
+group_col: null                # cột nhóm (id người/cửa hàng/bệnh nhân): cả nhóm nằm cùng một tập
+drop_cols: []                  # cột id, cột chắc chắn gây rò rỉ nhãn
+text_cols: []                  # cột văn bản -> TF-IDF (chỉ với model logreg/ridge)
+model: logreg                  # phân loại: logreg | rf | hgb ; hồi quy: ridge | rf | hgb
+class_weights: none            # none | balanced
+ratios: [0.7, 0.15, 0.15]
+split_file: data/tabular_split.json
+seed: 42
+runs_dir: runs
+tag: baseline

@@ -1,0 +1,30 @@
+# Render Blueprint cho backend AI. Chép file này ra THƯ MỤC GỐC repo (Render đọc render.yaml ở gốc), push, rồi
+# Render Dashboard > New > Blueprint > chọn repo. Lần tạo đầu Render hỏi giá trị các biến sync: false (key, model).
+# Chưa deploy thật trong kit; trường lấy theo tài liệu Blueprint của Render (đọc 06/11/2026).
+services:
+  - type: web
+    name: ai-api
+    runtime: python
+    plan: free            # gói free ngủ khi rảnh: request đầu sau khi ngủ rất chậm. Ngày thi: gọi /health trước khi demo, hoặc dùng gói trả phí.
+    rootDir: ml
+    buildCommand: pip install -r requirements-llm.txt
+    startCommand: uvicorn serve.app_llm:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: SYSTEM
+        value: examples.llm_system_template:run   # đổi thành module:function của bạn
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      # Dùng OpenAI (giải có credit OpenAI): đổi SYSTEM thành examples.openai_system_template:run và điền 2 biến dưới.
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        sync: false       # đúng model bạn đã gọi thử thành công
+      - key: MAX_CHARS
+        value: "1500000"  # đủ cho ảnh base64 ~1024 px; chỉ gửi chữ thì có thể giảm
+      - key: TIMEOUT_S
+        value: "20"
+      - key: MAX_INFLIGHT
+        value: "8"
+      - key: PYTHON_VERSION
+        value: "3.12.4"

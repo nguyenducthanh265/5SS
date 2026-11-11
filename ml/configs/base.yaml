@@ -1,0 +1,23 @@
+# Cấu hình gốc. Mỗi thí nghiệm chỉ đổi MỘT thứ, ví dụ:
+#   python -m mlkit.train --config configs/base.yaml --set backbone=efficientnet_b0 tag=effnet
+data_dir: data                  # data/<tên_lớp>/<ảnh>
+split_file: data/split.json     # chia một lần, commit file này
+group_regex: null               # ví dụ "^(.*)_frame\\d+" để các khung hình cùng video không bị tách sang tập khác
+ratios: [0.7, 0.15, 0.15]       # train / val / test
+backbone: mobilenet_v3_small    # mobilenet_v3_small | mobilenet_v3_large | efficientnet_b0 | resnet18
+pretrained: true
+img_size: 224
+batch_size: 32
+epochs: 15
+lr: 0.001                       # lr của head; backbone dùng lr * 0.1
+weight_decay: 0.0001
+freeze_epochs: 2                # số epoch đầu chỉ huấn luyện head
+augment: basic                  # none | basic | strong
+hflip: true                     # tắt nếu lật ảnh làm đổi nghĩa (chữ, ký hiệu trái/phải)
+label_smoothing: 0.0
+class_weights: none             # none | balanced (dùng khi các lớp lệch nhau)
+patience: 5                     # dừng sớm nếu val macro-F1 không tăng sau ngần ấy epoch
+seed: 42
+num_workers: 2
+runs_dir: runs
+tag: baseline

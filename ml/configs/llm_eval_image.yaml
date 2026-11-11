@@ -1,0 +1,22 @@
+# Đánh giá model đọc ẢNH thật (ví dụ nhãn sản phẩm) bằng examples/openai_system_template.py. Chạy trong ml/:
+#   OPENAI_API_KEY=... python -m mlkit.tasks.llm_eval train --config configs/llm_eval_image.yaml --set "params={model: <model của bạn>}"
+# Dataset mỗi dòng: {"id": "a01", "input": "{\"prompt\": \"<prompt giống hệt trong app>\", \"image_path\": \"data/photos/a01.jpg\", \"json\": true}", "expected": "sữa"}
+#   - image_path tính từ thư mục ml/; một ảnh nhiều đáp án thì nhiều dòng cùng "group" (luôn nằm cùng một tập).
+#   - scorer contains: đạt khi expected nằm trong output (chuỗi JSON model trả về). Cần chặt hơn thì viết judge riêng.
+dataset: data/image_eval.jsonl
+system: examples.openai_system_template:run
+params: {}                             # bắt buộc có model: {model: <model>}; hoặc đặt biến môi trường OPENAI_MODEL
+scorer: contains
+judge: null
+system_version: v1                     # đổi khi đổi model phía API hoặc prompt nằm ngoài dataset
+fingerprint_files: ["data/photos/*"]   # đổi/ thêm ảnh thì cache tự làm mới
+cache: true
+normalize: true
+dev_ratio: 0.7
+pass_threshold: 1.0
+workers: 4
+retries: 2
+cache_dir: .cache/llm
+seed: 0
+runs_dir: runs
+tag: image-baseline

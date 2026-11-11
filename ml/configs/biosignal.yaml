@@ -1,0 +1,16 @@
+# Tín hiệu y sinh / chuỗi thời gian. Mỗi thí nghiệm đổi một thứ:
+#   python -m mlkit.tasks.biosignal train --config configs/biosignal.yaml --set model=cnn tag=cnn
+npz: data/windows.npz          # X (N, kênh, mẫu), y (N,), subject (N,)
+classes: null                  # ví dụ ["wake", "n1", "n2", "n3", "rem"]; null = 0..max
+fs: 100                        # tần số lấy mẫu (Hz), dùng cho đặc trưng băng tần
+model: logreg                  # logreg | hgb (đặc trưng thủ công) | cnn (1D CNN, cần torch)
+class_weights: none            # none | balanced
+epochs: 30                     # chỉ cho cnn
+batch_size: 64
+lr: 0.001
+patience: 6
+ratios: [0.7, 0.15, 0.15]      # chia theo ĐỐI TƯỢNG, không theo cửa sổ
+split_file: data/signal_split.json
+seed: 42
+runs_dir: runs
+tag: baseline

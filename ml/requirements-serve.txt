@@ -1,0 +1,9 @@
+# Chỉ để chạy API (nhẹ, không có torch) - dùng cho Render/Railway/HF Spaces
+fastapi
+uvicorn[standard]
+python-multipart
+onnxruntime
+pillow
+numpy
+# Nếu backend gọi Claude qua examples/llm_system_template.py, bỏ dấu # ở dòng dưới (đã kiểm với anthropic 2.5.0):
+# anthropic>=2.5

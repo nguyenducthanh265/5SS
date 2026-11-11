@@ -1,0 +1,7 @@
+data/
+runs/
+.cache/
+**/__pycache__/
+tests/
+*.onnx
+.env

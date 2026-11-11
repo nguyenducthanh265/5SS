@@ -1,0 +1,23 @@
+# Cấu hình đánh giá Vision AI phân loại rác Hà Nội (QĐ 87/2025/QĐ-UBND).
+# Chạy trong thư mục ml/:
+#   $env:OPENAI_API_KEY="..."; python -X utf8 -m mlkit.tasks.llm_eval train --config configs/waste_eval.yaml --set "params={model: <model>}"
+# Cách ghi từng dòng trong data/image_eval.jsonl:
+#   {"id": "w01", "group": "photo_01", "input": "{\"prompt\": \"Nhận diện vật phẩm rác trong ảnh (tên tiếng Việt, chất liệu, có dính dầu mỡ/còn sót chất lỏng không). Trả về JSON.\", \"image_path\": \"data/photos/w01.jpg\", \"json\": true}", "expected": "hộp sữa"}
+dataset: data/image_eval.jsonl
+system: mypkg.waste_ai:run
+params: {}
+scorer: contains
+judge: null
+system_version: v1
+fingerprint_files: ["data/photos/*"]
+cache: true
+normalize: true
+dev_ratio: 0.7
+pass_threshold: 1.0
+workers: 4
+retries: 2
+cache_dir: .cache/llm
+seed: 0
+runs_dir: runs
+tag: hanoi-waste-baseline
+

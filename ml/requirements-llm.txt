@@ -1,0 +1,9 @@
+# Backend AI tối thiểu cho serve/app_llm.py (không torch, không onnxruntime). Dùng cho Render/Railway/Docker.
+fastapi>=0.110
+uvicorn[standard]>=0.29
+# Hệ thống gọi Claude (examples/llm_system_template.py). Đổi sang SDK khác nếu bạn dùng nhà cung cấp khác.
+anthropic>=2.5
+# Hệ thống gọi OpenAI, nhận cả ảnh (examples/openai_system_template.py). Đã kiểm với openai 3.49.0.
+openai>=3.49
+# Hệ thống gọi Gemini Developer API / Interactions API (mypkg/gemini_vision.py). Đã kiểm với google-genai 3.1.0.
+google-genai>=2.30.1

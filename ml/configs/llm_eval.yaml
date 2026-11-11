@@ -1,0 +1,19 @@
+# Đánh giá LLM / agent / RAG. Mỗi thí nghiệm đổi một thứ (prompt, model, top_k...):
+#   python -m mlkit.tasks.llm_eval train --config configs/llm_eval.yaml --set system=examples.toy_system:run tag=toy
+dataset: examples/eval_example.jsonl   # mỗi dòng: {"id","input","expected"[,"group"]}; dòng cùng input (hoặc cùng group) luôn nằm cùng một tập
+system: examples.toy_system:run        # module:function(input, **params) -> str | {"output", "tokens"}
+params: {}                             # truyền vào hàm, ví dụ {model: claude-sonnet-5-5, max_tokens: 4096}; claude-sonnet-5-5 KHÔNG nhận temperature/top_p/top_k (lỗi 400)
+scorer: contains                       # exact | contains | regex | f1 | judge
+judge: null                            # module:function(input, output, expected) -> 0..1 (khi scorer=judge, ví dụ LLM chấm)
+system_version: v1                     # đổi khi đổi thứ hàm không tự thấy (model phía API, prompt ở nơi khác)
+fingerprint_files: []                  # glob các file ảnh hưởng kết quả (prompt, corpus RAG), ví dụ ["prompts/*.txt", "corpus/*.md"]
+cache: true                            # false = bỏ cache để kiểm chứng; đổi code/prompt/params/system_version đã tự làm cache mới
+normalize: true
+dev_ratio: 0.7                         # phần dev (dùng để chỉnh); phần còn lại là test, mở một lần
+pass_threshold: 1.0
+workers: 4
+retries: 2
+cache_dir: .cache/llm
+seed: 0
+runs_dir: runs
+tag: baseline

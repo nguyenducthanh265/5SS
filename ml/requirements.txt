@@ -1,0 +1,18 @@
+# Huấn luyện (Colab/Kaggle/máy có GPU)
+torch
+torchvision
+pyyaml
+scikit-learn
+pillow
+numpy
+pandas
+joblib
+onnx
+onnxruntime
+# API suy luận (server chỉ cần các dòng dưới + onnxruntime, pillow, numpy)
+fastapi
+uvicorn[standard]
+python-multipart
+# Test
+pytest
+httpx
