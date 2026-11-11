@@ -535,3 +535,11 @@ def test_waste_ai_provider_resolution_and_gemini_errors(monkeypatch):
     with pytest.raises(RuntimeError, match="rỗng"):
         waste_ai.run("mô tả rác", client=empty_client)
 
+
+def test_gemini_api_key_reads_local_dotenv_fallback(tmp_path, monkeypatch):
+    monkeypatch.delenv("GEMINI_API_KEY", raising=False)
+    monkeypatch.delenv("GOOGLE_API_KEY", raising=False)
+    env_file = tmp_path / ".env"
+    env_file.write_text("# comment\nGEMINI_API_KEY='demo-local-key'\n", encoding="utf-8")
+    assert waste_ai.gemini_vision.get_gemini_api_key(env_path=env_file) == "demo-local-key"
+

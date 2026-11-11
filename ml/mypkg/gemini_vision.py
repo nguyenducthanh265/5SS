@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import mimetypes
 import os
+from pathlib import Path
 from typing import Any
 
 from examples import openai_system_template
@@ -10,6 +11,7 @@ from examples import openai_system_template
 from .waste_rules import load_rules
 
 DEFAULT_GEMINI_MODEL = "gemini-3.8-flash"
+_LOCAL_ENV_PATH = Path(__file__).resolve().parents[1] / ".env"
 
 VISION_ITEMS_JSON_SCHEMA: dict[str, Any] = {
     "type": "object",
@@ -66,9 +68,29 @@ def build_gemini_item_schema(rules: dict[str, Any] | None = None) -> dict[str, A
     return schema
 
 
-def get_gemini_api_key() -> str:
-    """Resolve Gemini Developer API key from GEMINI_API_KEY or GOOGLE_API_KEY."""
-    return (os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY") or "").strip()
+def _read_dotenv_var(names: tuple[str, ...], env_path: Path | None = None) -> str:
+    """Safely look up missing local .env secrets without printing or logging values."""
+    target = env_path if env_path is not None else _LOCAL_ENV_PATH
+    if not target.is_file():
+        return ""
+    for line in target.read_text(encoding="utf-8", errors="ignore").splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#") or "=" not in stripped:
+            continue
+        k, _, v = stripped.partition("=")
+        if k.strip() in names:
+            cleaned = v.strip().strip("'\"")
+            if cleaned:
+                return cleaned
+    return ""
+
+
+def get_gemini_api_key(env_path: Path | None = None) -> str:
+    """Resolve Gemini Developer API key from environment or local ml/.env."""
+    direct = (os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY") or "").strip()
+    if direct:
+        return direct
+    return _read_dotenv_var(("GEMINI_API_KEY", "GOOGLE_API_KEY"), env_path=env_path)
 
 
 def _build_image_part(image: str) -> dict[str, str]:
