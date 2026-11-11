@@ -310,6 +310,7 @@ def test_waste_ai_timeout_forwarded_and_app_llm_fallback_contract(monkeypatch):
     monkeypatch.setattr(waste_ai.openai_system_template, "run", fake_openai_run)
     monkeypatch.chdir(ROOT)
     monkeypatch.setenv("SYSTEM", "mypkg.waste_ai:run")
+    monkeypatch.setenv("LLM_PROVIDER", "openai")
     monkeypatch.setenv("TIMEOUT_S", "11")
     sys.modules.pop("serve.app_llm", None)
     app_mod = importlib.import_module("serve.app_llm")
