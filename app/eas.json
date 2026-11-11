@@ -9,7 +9,7 @@
       "distribution": "internal",
       "android": { "buildType": "apk" },
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://TEN-BACKEND.onrender.com"
+        "EXPO_PUBLIC_API_URL": "https://hanoi-waste-ai.onrender.com"
       }
     }
   }
